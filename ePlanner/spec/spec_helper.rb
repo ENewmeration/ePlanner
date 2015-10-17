@@ -8,6 +8,8 @@ require 'capybara/rspec'
 require 'capybara/rails'
 
 RSpec.configure do |config|
+  config.add_formatter 'documentation'
+  config.color = true
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
   config.order = 'random'
   config.before(:suite) do
