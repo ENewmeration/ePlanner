@@ -1,0 +1,78 @@
+<h4 style="margin-left:30px"> Edit </h4>
+
+
+<%= form_for @course, url: teacher_user_update_course_path, action: :get do |f| %>
+  <%= f.label :name %><br />
+  <%= f.text_field :name, :size=>"35" %></div><br />
+  <br />
+  <%= f.label :department %><br />
+  <%= f.text_field :department %><br />
+  <br />
+
+  <%= f.label :number %><br />
+  <%= f.number_field :number %><br />
+  <%= f.hidden_field :id %>
+  <%= f.hidden_field :assignment_data %>
+  <br />
+
+  <%= f.submit :submit %>
+<% end %>
+
+<div class="container">
+  <div id="table" class="table-editable">
+    <span class="table-add glyphicon glyphicon-plus"></span>
+    <table style="margin-left: -80px; margin-top: 25px"class="table">
+      <tr>
+        <th>Assignment</th>
+        <th>Due Date</th>
+        <th>Type</th>
+        <th></th>
+        <th></th>
+      </tr>
+      <% ActiveSupport::JSON.decode(@course.assignment_data).each do |assignment_hash| %>
+        <tr>
+          <td contenteditable="true" width="150px"><%= assignment_hash["assignment"] %></td>
+          <td contenteditable="false" width="150px">
+            <input type='date' value=
+          <%= assignment_hash["due_date"][0..3]+"-"+
+              assignment_hash["due_date"][5..6]+"-"+
+              assignment_hash["due_date"][8..9]
+              %>></input></td>
+          <td contenteditable="false" width="150px">
+            <%= select_tag( 
+              "assignmenttype",
+              options_for_select(AssignmentType.types, assignment_hash["type"])
+              )
+            %>
+          </td>
+          <td>
+            <span class="table-remove glyphicon glyphicon-remove"></span>
+          </td>
+          <td>
+            <span class="table-up glyphicon glyphicon-arrow-up"></span>
+            <span class="table-down glyphicon glyphicon-arrow-down"></span>
+          </td>
+        </tr>
+      <% end %>
+      <!-- This is our clonable table line -->
+      <tr class="hide">
+        <td contenteditable="true" width="150px">Stir Fry</td>
+        <td contenteditable="false" width="150px"><input type='date'></input></td>
+        <td contenteditable="false" width="150px">
+          <%= select_tag( 
+            "assignmenttype",
+            options_for_select(AssignmentType.types, AssignmentType.types[0])
+            )
+          %>
+        </td>
+        <td>
+          <span class="table-remove glyphicon glyphicon-remove"></span>
+        </td>
+        <td>
+          <span class="table-up glyphicon glyphicon-arrow-up"></span>
+          <span class="table-down glyphicon glyphicon-arrow-down"></span>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

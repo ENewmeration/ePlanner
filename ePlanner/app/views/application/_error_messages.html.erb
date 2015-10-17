@@ -1,0 +1,11 @@
+<% if object && object.errors.any? %>
+	<section id="error-explanation">
+		<%= 'Error'.pluralize(object.errors.size) %>
+		<p>Check the Following fields</p>
+		<ol>
+			<% object.errors.full_messages.each do |error_message| %>
+				<li><%= error_message %></li>
+			<% end %>
+		</ol>
+	</section>
+<% end %>
