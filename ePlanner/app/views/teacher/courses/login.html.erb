@@ -1,0 +1,21 @@
+<h3>Teacher Login</h3>
+
+<p style="margin-left: 30px; color:green"><%= flash[:success] %></p>
+<p style="margin-left: 30px; color:red"><%= flash[:danger] %></p>
+
+<div class="row">
+  <div class="col-xs-6 col-md-4">
+    <%= form_for(:session, url: teacher_login_path, method: :get) do |f| %>
+
+      <%= f.label :email %>
+      <%= f.email_field :email, class: 'form-control' %>
+
+      <%= f.label :password, style: "margin-top: 15px" %>
+      <%= f.password_field :password, class: 'form-control' %>
+
+      <%= f.submit "Log in", style: "margin-top: 15px"%>
+    <% end %>
+
+    <p style="margin-left: 30px; margin-top: 15px">New user? <%= link_to "Sign up now!", teacher_signup_path %></p>
+  </div>
+</div>
