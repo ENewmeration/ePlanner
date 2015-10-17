@@ -1,1 +1,0 @@
-task :test => [:spec] #, :teaspoon]
